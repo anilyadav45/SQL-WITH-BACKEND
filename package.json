@@ -1,0 +1,14 @@
+{
+  "name": "sqlwithbackend",
+  "version": "1.0.0",
+  "description": "just learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anil Yadav",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^9.3.0"
+  }
+}
