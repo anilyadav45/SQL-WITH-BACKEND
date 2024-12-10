@@ -10,13 +10,20 @@ const connection = mysql.createConnection({
 });
 
 // Correct query to show tables in the database
+// inserting data with this query
+let q = "INSERT INTO blogData (id,username,email,password) VALUES (?,?,?,?)"; //sql query we pass to connection
+//in form of array we insert in values i.e 
+const blogData = ["122","anilyadav45@2","mahiyadav42@gmail2.com","76453Anil2"];
+//we have to keep change it for insert each time so now we use faker data generator to learn more as we mentioned that id should be unique so while inserting it should be unique to previous one
 try {
-    connection.query("SHOW TABLES", (err, result) => {
+    connection.query(q, blogData,(err, result) => {
         if (err) throw err; // Handle database error
         console.log(result); // Output the result
+        console.log(result.length);
+        console.log(result[0]);
     });
 } catch (e) {
-    console.log("Error occurred: " + e.message);
+    console.log("Error occurred: " + e);
 }
 
 //stop connection after execution
