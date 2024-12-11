@@ -82,6 +82,24 @@ app.post("/",(req,res)=>{
     
 })
 
+//show route - to see all users
+app.get("/users",(req,res)=>{
+  
+
+    let q3 = "SELECT * FROM blogData";
+    try {
+            connection.query(q3, (err, users) => {
+                if (err) throw err; // Handle database error
+                console.log(users); // Output the result
+                res.render("showusers.ejs",{users});
+            });
+        } catch (e) {
+            res.send("some error in sql query");
+        }
+    
+
+})
+
 
 // console.log(data);
 // Correct query to show tables in the database
