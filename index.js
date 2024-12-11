@@ -11,12 +11,13 @@ const connection = mysql.createConnection({
 
 // Correct query to show tables in the database
 // inserting data with this query
-let q = "INSERT INTO blogData (id,username,email,password) VALUES (?,?,?,?)"; //sql query we pass to connection
+let q = "INSERT INTO blogData (id,username,email,password) VALUES ?"; //sql query we pass to connection
 //in form of array we insert in values i.e 
-const blogData = ["122","anilyadav45@2","mahiyadav42@gmail2.com","76453Anil2"];
+const blogData = [["125", "anilyadav45@5", "mahiyadav42@gmail5.com", "76453Anil5"], ["126", "anilyadav45@6", "mahiyadav42@gmail6.com", "76453Anil6"]];
+
 //we have to keep change it for insert each time so now we use faker data generator to learn more as we mentioned that id should be unique so while inserting it should be unique to previous one
 try {
-    connection.query(q, blogData,(err, result) => {
+    connection.query(q, [blogData], (err, result) => {
         if (err) throw err; // Handle database error
         console.log(result); // Output the result
         console.log(result.length);
