@@ -100,7 +100,27 @@ app.get("/users",(req,res)=>{
 
 })
 
+//route to edit username
+app.get("/users/:id/edit",(req,res)=>{
 
+    let {id} = req.params;
+    let q4 = `SELECT * FROM blogData WHERE id='${id}'`;
+    console.log(id);
+    try {
+            connection.query(q4, (err, users) => {
+                if (err) throw err; // Handle database error
+                let {id} = req.params;
+                console.log(id);
+                res.render("edit.ejs",{users});
+            });
+        } catch (e) {
+            res.send("some error in sql query");
+        }
+
+})
+app.post("/users/:id",(req,res)=>{
+    
+})
 // console.log(data);
 // Correct query to show tables in the database
 // inserting data with this query
