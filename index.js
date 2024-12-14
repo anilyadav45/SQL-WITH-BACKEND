@@ -3,13 +3,15 @@ const mysql = require('mysql2');
 const express = require('express');
 const path = require('path');
 const app = express();
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 
 //body parser for holding template newuser data 
 
 const bodyParser = require("body-parser");
 // Middleware to parse form data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); //to passs form data
 app.use(express.json());
 
 // Get connection to MySQL database
@@ -118,6 +120,31 @@ app.get("/users/:id/edit", (req, res) => {
     }
 
 })
+
+app.patch("/users/:id", (req, res) => {
+    let { username, password } = req.body; // Extract data from the request body
+    let { id } = req.params; // Extract the user ID from the route parameter
+
+    if (!username || !password) {
+        return res.status(400).send("Invalid input: Username or password is missing.");
+    }
+
+    let q5 = `UPDATE blogData SET username = ? WHERE id = ? AND password = ?`;
+
+    connection.query(q5, [username, id, password], (err, result) => {
+        if (err) {
+            console.error("SQL Error:", err);
+            return res.status(500).send("An error occurred while updating the username.");
+        }
+
+        if (result.affectedRows > 0) {
+            res.redirect("/users");
+        } else {
+            res.status(404).send("User not found or incorrect password.");
+        }
+    });
+});
+
 
 
 // console.log(data);
